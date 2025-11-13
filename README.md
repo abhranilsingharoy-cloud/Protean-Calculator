@@ -1,319 +1,183 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific Calculator Pro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+# 🧮 Protean Calculator
 
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+*Protean Calculator* is a modern, fully responsive *Scientific Calculator Web Application* built using *HTML, Tailwind CSS, and JavaScript*.  
+It features a clean and elegant dark UI, advanced scientific functions, and real-time calculation history — designed for accuracy, usability, and style.
 
-        .display-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
+---
 
-        /* Custom Scrollbar for History */
-        .history-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .history-scroll::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-        .history-scroll::-webkit-scrollbar-thumb {
-            background: #475569;
-            border-radius: 3px;
-        }
-        .history-scroll::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
+## 🚀 Features
 
-        /* Button active press effect */
-        .calc-btn:active {
-            transform: translateY(1px);
-        }
-    </style>
-</head>
-<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+✅ *Responsive Design* – Works perfectly on desktop, tablet, and mobile devices  
+✅ *Scientific Functions* – Includes trigonometric, logarithmic, and exponential operations  
+✅ *Degree / Radian Mode* – Switch easily between angle units  
+✅ *Calculation History* – View, reuse, or clear your past calculations  
+✅ *Keyboard Support* – Perform calculations directly using your keyboard  
+✅ *Smooth & Minimal UI* – Styled with Tailwind CSS for a professional look  
+✅ *Precision Output* – Handles floating-point errors gracefully for accurate results  
 
-    <!-- Main Container -->
-    <div class="w-full max-w-4xl bg-slate-800 rounded-2xl shadow-2xl overflow-hidden border border-slate-700 flex flex-col md:flex-row">
-        
-        <!-- Calculator Section -->
-        <div class="flex-1 p-6 flex flex-col">
-            
-            <!-- Header / Mode Toggle -->
-            <div class="flex justify-between items-center mb-4">
-                <h1 class="text-slate-400 text-sm font-medium tracking-wider">SCIENTIFIC</h1>
-                <div class="flex bg-slate-700 rounded-lg p-1">
-                    <button id="degBtn" class="px-3 py-1 text-xs font-bold rounded-md bg-blue-600 text-white transition-colors" onclick="setMode('deg')">DEG</button>
-                    <button id="radBtn" class="px-3 py-1 text-xs font-bold rounded-md text-slate-400 hover:text-white transition-colors" onclick="setMode('rad')">RAD</button>
-                </div>
-            </div>
+---
 
-            <!-- Display -->
-            <div class="bg-slate-900 rounded-xl p-4 mb-6 border border-slate-700 shadow-inner h-32 flex flex-col justify-end items-end relative">
-                <!-- Previous Calculation / History Preview -->
-                <div id="historyPreview" class="text-slate-500 text-sm mb-1 display-font h-5 overflow-hidden"></div>
-                <!-- Current Input -->
-                <input type="text" id="display" class="w-full bg-transparent text-right text-3xl md:text-4xl font-medium text-white outline-none display-font placeholder-slate-700" placeholder="0" readonly>
-            </div>
+## 🧠 Supported Operations
 
-            <!-- Keypad -->
-            <div class="grid grid-cols-5 gap-3 md:gap-4">
-                
-                <!-- Row 1: Memory & Functions -->
-                <button onclick="clearDisplay()" class="calc-btn col-span-2 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition-colors">AC</button>
-                <button onclick="deleteChar()" class="calc-btn bg-slate-600 hover:bg-slate-500 py-3 rounded-lg font-semibold transition-colors">DEL</button>
-                <button onclick="input('(')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-blue-300 py-3 rounded-lg font-semibold transition-colors">(</button>
-                <button onclick="input(')')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-blue-300 py-3 rounded-lg font-semibold transition-colors">)</button>
+| Type | Functions |
+|------|------------|
+| *Basic* | Addition (+), Subtraction (-), Multiplication (×), Division (÷), Modulus (%) |
+| *Scientific* | sin(x), cos(x), tan(x), log(x), ln(x), √x, xʸ |
+| *Constants* | π (Pi), e (Euler’s number) |
+| *Modes* | DEG / RAD toggle for trigonometric calculations |
+| *History* | View and reuse previous results |
 
-                <!-- Row 2: Scientific -->
-                <button onclick="inputFunc('sin')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-emerald-300 py-3 rounded-lg font-semibold text-sm transition-colors">sin</button>
-                <button onclick="inputFunc('cos')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-emerald-300 py-3 rounded-lg font-semibold text-sm transition-colors">cos</button>
-                <button onclick="inputFunc('tan')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-emerald-300 py-3 rounded-lg font-semibold text-sm transition-colors">tan</button>
-                <button onclick="inputFunc('log')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-emerald-300 py-3 rounded-lg font-semibold text-sm transition-colors">log</button>
-                <button onclick="inputFunc('ln')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-emerald-300 py-3 rounded-lg font-semibold text-sm transition-colors">ln</button>
+---
 
-                <!-- Row 3: More Sci & Constants -->
-                <button onclick="input('^')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-emerald-300 py-3 rounded-lg font-semibold transition-colors">xʸ</button>
-                <button onclick="inputFunc('sqrt')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-emerald-300 py-3 rounded-lg font-semibold transition-colors">√</button>
-                <button onclick="input('π')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-purple-300 py-3 rounded-lg font-semibold transition-colors">π</button>
-                <button onclick="input('e')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-purple-300 py-3 rounded-lg font-semibold transition-colors">e</button>
-                <button onclick="input('%')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-blue-300 py-3 rounded-lg font-semibold transition-colors">%</button>
+## 🧩 Technologies Used
 
-                <!-- Row 4: Numbers & Operators -->
-                <button onclick="input('7')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">7</button>
-                <button onclick="input('8')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">8</button>
-                <button onclick="input('9')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">9</button>
-                <button onclick="input('/')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-blue-400 py-3 rounded-lg font-bold text-xl transition-colors">÷</button>
-                <button onclick="input('*')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-blue-400 py-3 rounded-lg font-bold text-xl transition-colors">×</button>
+- 🧱 *HTML5* – Structure and layout  
+- 🎨 *Tailwind CSS* – Modern styling and responsive design  
+- ⚙ *JavaScript (ES6)* – Logic, functions, and interactivity  
 
-                <!-- Row 5: Numbers & Operators -->
-                <button onclick="input('4')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">4</button>
-                <button onclick="input('5')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">5</button>
-                <button onclick="input('6')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">6</button>
-                <button onclick="input('-')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-blue-400 py-3 rounded-lg font-bold text-xl transition-colors">−</button>
-                <button onclick="input('+')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-blue-400 py-3 rounded-lg font-bold text-xl transition-colors">+</button>
+---
 
-                <!-- Row 6: Numbers, Dot, Equals -->
-                <button onclick="input('1')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">1</button>
-                <button onclick="input('2')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">2</button>
-                <button onclick="input('3')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">3</button>
-                <button onclick="input('0')" class="calc-btn col-span-1 bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-medium text-lg transition-colors">0</button>
-                <button onclick="input('.')" class="calc-btn bg-slate-700/50 hover:bg-slate-600 py-3 rounded-lg font-bold text-xl transition-colors">.</button>
-                
-            </div>
-            <!-- Calculate Button (Full Width) -->
-            <button onclick="calculate()" class="w-full mt-3 bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-lg font-bold text-xl shadow-lg transition-all active:scale-[0.99]">
-                =
-            </button>
-        </div>
+## 💻 How to Use
+1. *Clone the Repository*
+   ```bash
+   git clone https://github.com/abhranilsingharoy-cloud/Protean-Calculator.git
 
-        <!-- Sidebar (History) -->
-        <div class="hidden md:flex flex-col w-72 bg-slate-900 border-l border-slate-700 p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-slate-400 font-medium tracking-wide text-sm">HISTORY</h2>
-                <button onclick="clearHistory()" class="text-xs text-red-400 hover:text-red-300 transition-colors">CLEAR</button>
-            </div>
-            <div id="historyList" class="history-scroll flex-1 overflow-y-auto space-y-3 pr-2">
-                <div class="text-slate-600 text-sm italic text-center mt-10">No calculations yet</div>
-            </div>
-        </div>
+2. Navigate to the Folder
 
-        <!-- Mobile History Toggle (Visible only on small screens) -->
-        <div class="md:hidden bg-slate-900 p-4 border-t border-slate-700">
-            <details class="group">
-                <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-slate-400">
-                    <span>Calculation History</span>
-                    <span class="transition group-open:rotate-180">
-                        <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                    </span>
-                </summary>
-                <div class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-                     <div id="mobileHistoryList" class="max-h-40 overflow-y-auto space-y-2">
-                        <div class="text-slate-600 text-sm italic text-center">No calculations yet</div>
-                     </div>
-                     <button onclick="clearHistory()" class="text-xs text-red-400 mt-2 w-full text-right">Clear History</button>
-                </div>
-            </details>
-        </div>
+cd Protean-Calculator
 
-    </div>
 
-    <script>
-        const display = document.getElementById('display');
-        const historyPreview = document.getElementById('historyPreview');
-        const historyList = document.getElementById('historyList');
-        const mobileHistoryList = document.getElementById('mobileHistoryList');
-        let isDegrees = true;
-        let lastResult = 0;
+3. Run the Application Just open the index.html file in your web browser — no installation needed.
 
-        // Input Handling
-        function input(value) {
-            // Prevent multiple operators in sequence if it causes syntax error
-            const lastChar = display.value.slice(-1);
-            const operators = ['+', '-', '*', '/', '^', '%', '.'];
-            
-            // Clear if "Error" is displayed
-            if (display.value === 'Error') {
-                display.value = '';
-            }
 
-            // Prevent leading operators
-            if (display.value === '' && ['+', '*', '/', '^', '%', ')'].includes(value)) return;
 
-            display.value += value;
-            scrollDisplayEnd();
-        }
 
-        function inputFunc(func) {
-            if (display.value === 'Error') display.value = '';
-            display.value += func + '(';
-            scrollDisplayEnd();
-        }
+---
 
-        function deleteChar() {
-            if (display.value === 'Error') {
-                display.value = '';
-            } else {
-                display.value = display.value.slice(0, -1);
-            }
-        }
+🌐 Live Demo
 
-        function clearDisplay() {
-            display.value = '';
-            historyPreview.innerText = '';
-        }
+👉 View the Calculator Online
+(Available once deployed via GitHub Pages)
 
-        function scrollDisplayEnd() {
-            display.scrollLeft = display.scrollWidth;
-        }
 
-        // Mode Toggle
-        function setMode(mode) {
-            const degBtn = document.getElementById('degBtn');
-            const radBtn = document.getElementById('radBtn');
-            
-            if (mode === 'deg') {
-                isDegrees = true;
-                degBtn.classList.remove('text-slate-400', 'hover:text-white');
-                degBtn.classList.add('bg-blue-600', 'text-white');
-                radBtn.classList.remove('bg-blue-600', 'text-white');
-                radBtn.classList.add('text-slate-400', 'hover:text-white');
-            } else {
-                isDegrees = false;
-                radBtn.classList.remove('text-slate-400', 'hover:text-white');
-                radBtn.classList.add('bg-blue-600', 'text-white');
-                degBtn.classList.remove('bg-blue-600', 'text-white');
-                degBtn.classList.add('text-slate-400', 'hover:text-white');
-            }
-        }
+---
 
-        // Calculation Logic
-        function calculate() {
-            if (display.value.trim() === '') return;
+⚙ Deployment via GitHub Pages
 
-            let expression = display.value;
-            let displayExpression = expression; // For history
+1. Go to your GitHub repository
 
-            // Pre-processing
-            expression = expression.replace(/π/g, 'Math.PI');
-            expression = expression.replace(/e/g, 'Math.E');
-            expression = expression.replace(/\^/g, '**');
-            expression = expression.replace(/%/g, '/100');
-            
-            // Handle Trigs
-            const trigFuncs = ['sin', 'cos', 'tan'];
-            trigFuncs.forEach(func => {
-                // Create regex to find func(number)
-                // This simple regex handles nested parenthesis poorly, so we rely on user inputting clean syntax
-                // For a robust app, a tokenizer/parser is needed. 
-                // Here we wrap standard math functions.
-                const regex = new RegExp(`${func}\\(`, 'g');
-                expression = expression.replace(regex, `Math.${func}(${isDegrees ? 'Math.PI/180*' : ''}`);
-            });
 
-            // Log and Ln
-            expression = expression.replace(/log\(/g, 'Math.log10(');
-            expression = expression.replace(/ln\(/g, 'Math.log(');
-            expression = expression.replace(/sqrt\(/g, 'Math.sqrt(');
+2. Click on Settings → Pages
 
-            try {
-                // Safety check: only allow math characters
-                // (In a real production app, don't use eval, write a parser. 
-                // For this scope, Function constructor is slightly safer than eval but still needs care)
-                const result = new Function('return ' + expression)();
-                
-                if (!isFinite(result) || isNaN(result)) {
-                    throw new Error("Invalid Calculation");
-                }
 
-                // Format Result
-                let formattedResult = parseFloat(result.toFixed(8)); // Avoid float precision errors like 0.0000000004
+3. Under Source, select main branch and / (root) folder
 
-                historyPreview.innerText = display.value + ' =';
-                display.value = formattedResult;
-                addToHistory(displayExpression, formattedResult);
-                lastResult = formattedResult;
 
-            } catch (error) {
-                display.value = 'Error';
-                setTimeout(() => {
-                    if(display.value === 'Error') display.value = '';
-                }, 1500);
-            }
-        }
+4. Click Save
 
-        // History Logic
-        function addToHistory(expr, res) {
-            const itemHTML = `
-                <div class="bg-slate-800 p-3 rounded border border-slate-700 hover:border-slate-600 transition-colors cursor-pointer" onclick="loadHistory('${res}')">
-                    <div class="text-slate-400 text-xs mb-1 text-right font-mono">${expr}</div>
-                    <div class="text-white font-bold text-right font-mono text-lg">= ${res}</div>
-                </div>
-            `;
-            
-            // Remove "No calculations yet" if it exists
-            if (historyList.children[0] && historyList.children[0].innerText.includes("No calculations")) {
-                historyList.innerHTML = '';
-                mobileHistoryList.innerHTML = '';
-            }
 
-            historyList.insertAdjacentHTML('afterbegin', itemHTML);
-            mobileHistoryList.insertAdjacentHTML('afterbegin', itemHTML);
-        }
+5. Your project will be live at:
+https://abhranilsingharoy-cloud.github.io/Protean-Calculator/
 
-        function loadHistory(val) {
-            display.value += val;
-        }
 
-        function clearHistory() {
-            const emptyMsg = '<div class="text-slate-600 text-sm italic text-center mt-4">No calculations yet</div>';
-            historyList.innerHTML = emptyMsg;
-            mobileHistoryList.innerHTML = emptyMsg;
-        }
 
-        // Keyboard Support
-        document.addEventListener('keydown', (e) => {
-            const key = e.key;
 
-            // Numbers and Operators
-            if (/[0-9+\-*/.%^()]/.test(key)) {
-                input(key);
-            } else if (key === 'Enter') {
-                e.preventDefault();
-                calculate();
-            } else if (key === 'Backspace') {
-                deleteChar();
-            } else if (key === 'Escape') {
-                clearDisplay();
-            }
-        });
+---
 
-    </script>
-</body>
-</html>
+📸 Preview
+
+(Add a screenshot of your calculator UI once ready)
+
+![Protean Calculator Preview](screenshot.png)
+
+
+---
+
+🧾 License
+
+This project is released under the MIT License — feel free to use, modify, and distribute it.
+
+
+---
+
+👨‍💻 Author
+
+Developed by Abhranil Singha Roy
+📧 abhranilsingharoy@gmail.com
+🔗 1. *Clone the Repository*
+   ```bash
+   git clone https://github.com/abhranilsingharoy-cloud/Protean-Calculator.git
+
+2. Navigate to the Folder
+
+cd Protean-Calculator
+
+
+3. Run the Application Just open the index.html file in your web browser — no installation needed.
+
+
+
+
+---
+
+🌐 Live Demo
+
+👉 View the Calculator Online
+(Available once deployed via GitHub Pages)
+
+
+---
+
+⚙ Deployment via GitHub Pages
+
+1. Go to your GitHub repository
+
+
+2. Click on Settings → Pages
+
+
+3. Under Source, select main branch and / (root) folder
+
+
+4. Click Save
+
+
+5. Your project will be live at:
+https://abhranilsingharoy-cloud.github.io/Protean-Calculator/
+
+
+
+
+---
+
+📸 Preview
+
+(Add a screenshot of your calculator UI once ready)
+
+![Protean Calculator Preview](screenshot.png)
+
+
+---
+
+🧾 License
+
+This project is released under the MIT License — feel free to use, modify, and distribute it.
+
+
+---
+
+👨‍💻 Author
+
+Developed by Abhranil Singha Roy
+📧 abhranilsingharoy@gmail.com
+🔗 LinkedIn Profile
+
+
+---
+
+
+---
+
+1. *Clone the Repository*
+   ```bash
+   git clone https://github.com/abhranilsingharoy-cloud/Protean-Calculator.git
