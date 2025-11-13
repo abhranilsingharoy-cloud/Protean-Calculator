@@ -78,6 +78,7 @@ This project is released under the MIT License — feel free to use, modify, and
 👨‍💻 Author
 
 Developed by: Abhranil Singha Roy
+
 📧 Email: abhranilsingharoy@gmail.com
 
 🔗 LinkedIn: https://www.linkedin.com/in/abhranil-singha-roy-a1b488371
