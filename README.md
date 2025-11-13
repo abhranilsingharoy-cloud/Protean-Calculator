@@ -170,14 +170,7 @@ This project is released under the MIT License — feel free to use, modify, and
 
 Developed by Abhranil Singha Roy
 📧 abhranilsingharoy@gmail.com
-🔗 LinkedIn Profile
+🔗 https://www.linkedin.com/in/abhranil-singha-roy-a1b488371
 
 
 ---
-
-
----
-
-1. *Clone the Repository*
-   ```bash
-   git clone https://github.com/abhranilsingharoy-cloud/Protean-Calculator.git
