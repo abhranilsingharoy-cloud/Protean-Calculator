@@ -105,12 +105,10 @@ This project is released under the MIT License — feel free to use, modify, and
 Developed by Abhranil Singha Roy
 📧 abhranilsingharoy@gmail.com
 🔗 1. *Clone the Repository*
-   ```bash
-   git clone https://github.com/abhranilsingharoy-cloud/Protean-Calculator.git
+   ```bash git clone https://github.com/abhranilsingharoy-cloud/Protean-Calculator.git
 
-2. Navigate to the Folder
 
-cd Protean-Calculator
+2. Navigate to the Folder cd Protean-Calculator
 
 
 3. Run the Application Just open the index.html file in your web browser — no installation needed.
