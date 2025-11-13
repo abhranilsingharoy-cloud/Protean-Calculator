@@ -6,11 +6,17 @@ It features a clean, elegant dark UI, advanced scientific functions, and a real-
 🚀 Features
 
 ✅ Responsive Design – Works perfectly on desktop, tablet, and mobile devices
+
 ✅ Scientific Functions – Includes trigonometric, logarithmic, and exponential operations
+
 ✅ Degree / Radian Mode – Easily switch between angle units
+
 ✅ Calculation History – View, reuse, or clear your past calculations
+
 ✅ Keyboard Support – Perform calculations directly using your keyboard
+
 ✅ Smooth & Minimal UI – Styled with Tailwind CSS for a modern look
+
 ✅ Precision Output – Handles floating-point errors gracefully for accurate results
 
 🧠 Supported Operations
