@@ -1,4 +1,4 @@
-🧮 Protean Calculator
+# 🧮 Protean Calculator
 
 Protean Calculator is a modern, fully responsive Scientific Calculator Web Application built using HTML, Tailwind CSS, and JavaScript.
 It features a clean, elegant dark UI, advanced scientific functions, and a real-time calculation history — designed for accuracy, usability, and style.
