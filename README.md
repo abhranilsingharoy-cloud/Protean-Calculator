@@ -3,7 +3,7 @@
 Protean Calculator is a modern, fully responsive Scientific Calculator Web Application built using HTML, Tailwind CSS, and JavaScript.
 It features a clean, elegant dark UI, advanced scientific functions, and a real-time calculation history — designed for accuracy, usability, and style.
 
-🚀 Features
+# 🚀 Features
 
 ✅ Responsive Design – Works perfectly on desktop, tablet, and mobile devices
 
@@ -19,7 +19,7 @@ It features a clean, elegant dark UI, advanced scientific functions, and a real-
 
 ✅ Precision Output – Handles floating-point errors gracefully for accurate results
 
-🧠 Supported Operations
+# 🧠 Supported Operations
 Type	Functions
 Basic	Addition (+), Subtraction (-), Multiplication (×), Division (÷), Modulus (%)
 Scientific	sin(x), cos(x), tan(x), log(x), ln(x), √x, xʸ
@@ -34,7 +34,7 @@ History	View and reuse previous results
 
 ⚙ JavaScript (ES6) – Logic, functions, and interactivity
 
-💻 How to Use
+# 💻 How to Use
 
 Clone the Repository
 
@@ -49,7 +49,7 @@ cd Protean-Calculator
 Run the Application
 Simply open the index.html file in your web browser — no installation needed.
 
-🌐 Live Demo
+# 🌐 Live Demo
 
 👉 View the Calculator Online:
 (Will be available once deployed via GitHub Pages)
@@ -67,15 +67,15 @@ Click Save
 Your project will be live at:
 🔗 https://abhranilsingharoy-cloud.github.io/Protean-Calculator/
 
-📸 Preview
+# 📸 Preview
 
 (Add a screenshot of your calculator UI once ready)
 
-🧾 License
+# 🧾 License
 
 This project is released under the MIT License — feel free to use, modify, and distribute it.
 
-👨‍💻 Author
+# 👨‍💻 Author
 
 Developed by: Abhranil Singha Roy
 
